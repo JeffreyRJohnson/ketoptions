@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render MenuItemListFilters correctly 1`] = `
+<div>
+  <input
+    onChange={[Function]}
+    type="text"
+    value=""
+  />
+</div>
+`;
+
+exports[`should render MenuItemListFilters with alt data correctly 1`] = `
+<div>
+  <input
+    onChange={[Function]}
+    type="text"
+    value="McDonalds"
+  />
+</div>
+`;

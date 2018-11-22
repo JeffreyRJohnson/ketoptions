@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render Header correctly 1`] = `
+<header>
+  <h1
+    className="header"
+  >
+    Ketoptions
+  </h1>
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    className="header__link"
+    exact={true}
+    to="/"
+  >
+    Landing Page
+  </NavLink>
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    className="header__link"
+    to="/dashboard"
+  >
+    Dashboard
+  </NavLink>
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    className="header__link"
+    to="/create"
+  >
+    Create
+  </NavLink>
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    className="header__link"
+    to="/edit"
+  >
+    Edit
+  </NavLink>
+  <NavLink
+    activeClassName="is-active"
+    aria-current="page"
+    className="header__link"
+    to="/delete"
+  >
+    Delete
+  </NavLink>
+</header>
+`;

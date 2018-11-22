@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render MenuItemList with empty message 1`] = `
+<div>
+  <p>
+    No menu items
+  </p>
+</div>
+`;
+
+exports[`should render MenuItemList with menuItems 1`] = `
+<div>
+  <MenuItemListItem
+    calories={400}
+    carbs={5}
+    fat={20}
+    id="1"
+    key="1"
+    menu_item="chilli - medium"
+    protein={30}
+    restaurant_name="Wendys"
+  />
+  <MenuItemListItem
+    calories={300}
+    carbs={3}
+    fat={15}
+    id="2"
+    key="2"
+    menu_item="chilli - small"
+    protein={30}
+    restaurant_name="Wendys"
+  />
+  <MenuItemListItem
+    calories={600}
+    carbs={80}
+    fat={85}
+    id="3"
+    key="3"
+    menu_item="chilli - large"
+    protein={50}
+    restaurant_name="Burger King"
+  />
+</div>
+`;

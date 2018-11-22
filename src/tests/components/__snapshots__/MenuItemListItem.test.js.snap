@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render MenuItemListItem with menuItems 1`] = `
+<div>
+  <h2>
+    Wendys
+  </h2>
+  <Link
+    replace={false}
+    to="/edit/1"
+  >
+    <h3>
+      chilli - medium
+    </h3>
+  </Link>
+  <p>
+    calories - 
+    400
+     protein - 
+    30
+     fat - 
+    20
+     carbs - 
+    5
+  </p>
+</div>
+`;

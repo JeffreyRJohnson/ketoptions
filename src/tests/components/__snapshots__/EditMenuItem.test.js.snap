@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render EditMenuItem 1`] = `
+<div>
+  <MenuItemForm
+    menuItem={
+      Object {
+        "calories": 600,
+        "carbs": 80,
+        "fat": 85,
+        "id": "3",
+        "menu_item": "chilli - large",
+        "protein": 50,
+        "restaurant_name": "Burger King",
+      }
+    }
+    onSubmit={[Function]}
+  />
+  <button
+    onClick={[Function]}
+  >
+    Remove
+  </button>
+</div>
+`;
