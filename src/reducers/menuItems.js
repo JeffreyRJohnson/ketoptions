@@ -19,6 +19,8 @@ export default (state = menuItemsReducerDefaultState, action) => {
           return menuItem;
         }
       });
+    case 'SET_MENU_ITEMS':
+      return action.menuItems;
     default:
       return state;
   }

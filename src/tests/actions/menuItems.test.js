@@ -4,12 +4,36 @@ import {
   startAddMenuItem,
   addMenuItem,
   editMenuItem,
-  removeMenuItem
+  startEditMenuItem,
+  removeMenuItem,
+  startRemoveMenuItem,
+  setMenuItems,
+  startSetMenuItems
 } from '../../actions/menuItems';
 import menuItems from '../fixtures/menuItems';
 import database from '../../firebase/firebase';
 
 const createMockStore = configureMockStore([thunk]);
+
+beforeEach(done => {
+  const menuItemsData = {};
+  menuItems.forEach(
+    ({ id, restaurant_name, menu_item, calories, protein, fat, carbs }) => {
+      menuItemsData[id] = {
+        restaurant_name,
+        menu_item,
+        calories,
+        protein,
+        fat,
+        carbs
+      };
+    }
+  );
+  database
+    .ref('menuItems')
+    .set(menuItemsData)
+    .then(() => done());
+});
 
 test('should setup removeMenuItem action object', () => {
   const action = removeMenuItem({ id: '123abc' });
@@ -17,6 +41,25 @@ test('should setup removeMenuItem action object', () => {
     type: 'REMOVE_MENU_ITEM',
     id: '123abc'
   });
+});
+
+test('should remove menuItem from firebase', done => {
+  const store = createMockStore({});
+  const id = menuItems[2].id;
+  store
+    .dispatch(startRemoveMenuItem({ id }))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'REMOVE_MENU_ITEM',
+        id
+      });
+      return database.ref(`menuItems/${id}`).once('value');
+    })
+    .then(snapshot => {
+      expect(snapshot.val()).toBeFalsy();
+      done();
+    });
 });
 
 test('should setup editMenuItem action object', () => {
@@ -28,6 +71,27 @@ test('should setup editMenuItem action object', () => {
       menu_item: 'soft shell taco'
     }
   });
+});
+
+test('should edit menuItem from firebase', done => {
+  const store = createMockStore({});
+  const id = menuItems[0].id;
+  const updates = { menu_item: 'nuggets' };
+  store
+    .dispatch(startEditMenuItem(id, updates))
+    .then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'EDIT_MENU_ITEM',
+        id,
+        updates
+      });
+      return database.ref(`menuItems/${id}`).once('value');
+    })
+    .then(snapshot => {
+      expect(snapshot.val().menu_item).toBe(updates.menu_item);
+      done();
+    });
 });
 
 test('should setup addMenuItem action object with provided values', () => {
@@ -100,18 +164,22 @@ test('should add menuItem with defaults to database and store', done => {
     });
 });
 
-// test('should setup addMenuItem action object with default values', () => {
-//   const action = addMenuItem();
-//   expect(action).toEqual({
-//     type: 'ADD_MENU_ITEM',
-//     menuItem: {
-//       id: expect.any(String),
-//       calories: 0,
-//       carbs: 0,
-//       fat: 0,
-//       menu_item: '',
-//       protein: 0,
-//       restaurant_name: ''
-//     }
-//   });
-// });
+test('should setup setMenuItem action object with data', () => {
+  const action = setMenuItems(menuItems);
+  expect(action).toEqual({
+    type: 'SET_MENU_ITEMS',
+    menuItems
+  });
+});
+
+test('should fetch the menuItems from firebase', done => {
+  const store = createMockStore({});
+  store.dispatch(startSetMenuItems()).then(() => {
+    const actions = store.getActions();
+    expect(actions[0]).toEqual({
+      type: 'SET_MENU_ITEMS',
+      menuItems
+    });
+    done();
+  });
+});

@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import MenuItemForm from './MenuItemForm';
-import { editMenuItem, removeMenuItem } from '../actions/menuItems';
+import { startEditMenuItem, startRemoveMenuItem } from '../actions/menuItems';
 
 export class EditMenuItem extends React.Component {
   onSubmit = menuItem => {
-    this.props.editMenuItem(this.props.menuItem.id, menuItem);
+    this.props.startEditMenuItem(this.props.menuItem.id, menuItem);
     this.props.history.push('/');
   };
   onRemove = () => {
-    this.props.removeMenuItem({ id: this.props.menuItem.id });
+    this.props.startRemoveMenuItem({ id: this.props.menuItem.id });
     this.props.history.push('/');
   };
   render() {
@@ -29,8 +29,8 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  editExpense: (id, menuItem) => dispatch(editMenuItem(id, menuItem)),
-  removeMenuItem: data => dispatch(removeMenuItem(data))
+  startEditExpense: (id, menuItem) => dispatch(startEditMenuItem(id, menuItem)),
+  startRemoveMenuItem: data => dispatch(startRemoveMenuItem(data))
 });
 
 export default connect(

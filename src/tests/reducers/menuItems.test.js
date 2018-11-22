@@ -67,3 +67,12 @@ test('should not edit a menu item if id not found ', () => {
   const state = menuItemsReducer(menuItems, action);
   expect(state).toEqual(menuItems);
 });
+
+test('should set menuItems', () => {
+  const action = {
+    type: 'SET_MENU_ITEMS',
+    menuItems: [menuItems[1]]
+  };
+  const state = menuItemsReducer(menuItems, action);
+  expect(state).toEqual([menuItems[1]]);
+});
