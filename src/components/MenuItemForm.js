@@ -118,10 +118,3 @@ export default class MenuItemForm extends React.Component {
     );
   }
 }
-
-// calories = 0,
-//   carbs = 0,
-//   fat = 0,
-//   menu_item = '',
-//   protein = 0,
-//   restaurant_name = ''

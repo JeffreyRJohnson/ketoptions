@@ -1,27 +1,28 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import AddMenuItem from '../components/AddMenuItem';
 import DashboardPage from '../components/DashboardPage';
-import DeleteMenuItem from '../components/DeleteMenuItem';
 import EditMenuItem from '../components/EditMenuItem';
-import Header from '../components/Header';
-import LandingPage from '../components/LandingPage';
 import NotFoundPage from '../components/NotFoundPage';
+import LoginPage from '../components/LoginPage';
+import PublicRoute from './PublicRoute';
+import PrivateRoute from './PrivateRoute';
+
+export const history = createHistory();
 
 const AppRouter = () => (
-  <BrowserRouter>
+  <Router history={history}>
     <div>
-      <Header />
       <Switch>
-        <Route path="/" component={LandingPage} exact={true} />
-        <Route path="/dashboard" component={DashboardPage} />
-        <Route path="/create" component={AddMenuItem} />
-        <Route path="/edit/:id" component={EditMenuItem} />
-        <Route path="/delete" component={DeleteMenuItem} />
+        <PublicRoute path="/" component={LoginPage} exact={true} />
+        <PrivateRoute path="/dashboard" component={DashboardPage} />
+        <PrivateRoute path="/create" component={AddMenuItem} />
+        <PrivateRoute path="/edit/:id" component={EditMenuItem} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
-  </BrowserRouter>
+  </Router>
 );
 
 export default AppRouter;

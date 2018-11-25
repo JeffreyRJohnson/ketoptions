@@ -8,7 +8,8 @@ export const addMenuItem = menuItem => ({
 });
 
 export const startAddMenuItem = (menuItemData = {}) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     const {
       calories = 0,
       carbs = 0,
@@ -28,7 +29,7 @@ export const startAddMenuItem = (menuItemData = {}) => {
     };
 
     return database
-      .ref('menuItems')
+      .ref(`users/${uid}/menuItems`)
       .push(menuItem)
       .then(ref => {
         dispatch(
@@ -48,9 +49,10 @@ export const removeMenuItem = ({ id } = {}) => ({
 });
 
 export const startRemoveMenuItem = ({ id } = {}) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref(`menuItems/${id}`)
+      .ref(`users/${uid}/menuItems/${id}`)
       .remove()
       .then(() => {
         dispatch(removeMenuItem({ id }));
@@ -66,9 +68,10 @@ export const editMenuItem = (id, updates) => ({
 });
 
 export const startEditMenuItem = (id, updates) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref(`menuItems/${id}`)
+      .ref(`users/${uid}/menuItems/${id}`)
       .update(updates)
       .then(() => {
         dispatch(editMenuItem(id, updates));
@@ -83,9 +86,10 @@ export const setMenuItems = menuItems => ({
 });
 
 export const startSetMenuItems = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     return database
-      .ref('menuItems')
+      .ref(`users/${uid}/menuItems`)
       .once('value')
       .then(snapshot => {
         const menuItems = [];

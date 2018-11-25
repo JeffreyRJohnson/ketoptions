@@ -2,9 +2,6 @@
 
 exports[`should render MenuItemListItem with menuItems 1`] = `
 <div>
-  <h2>
-    Wendys
-  </h2>
   <Link
     replace={false}
     to="/edit/1"

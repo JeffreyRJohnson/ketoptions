@@ -11,22 +11,6 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-export { firebase, database as default };
-
-// database
-//   .ref()
-//   .set({
-//     calories: 50,
-//     carbs: 3,
-//     fat: 20,
-//     menu_item: 'Chicken',
-//     protein: 20,
-//     restaurant_name: 'Popeyes'
-//   })
-//   .then(() => {
-//     console.log('data is saved');
-//   })
-//   .catch(error => {
-//     console.log('This failed', error);
-//   });
+export { firebase, googleAuthProvider, database as default };

@@ -13,7 +13,15 @@ import {
 import menuItems from '../fixtures/menuItems';
 import database from '../../firebase/firebase';
 
+const uid = 'thisismytestuid';
+const defaultAuthState = { auth: { uid } };
 const createMockStore = configureMockStore([thunk]);
+
+{
+  auth: {
+    uid;
+  }
+}
 
 beforeEach(done => {
   const menuItemsData = {};
@@ -30,7 +38,7 @@ beforeEach(done => {
     }
   );
   database
-    .ref('menuItems')
+    .ref(`users/${uid}/menuItems`)
     .set(menuItemsData)
     .then(() => done());
 });
@@ -44,7 +52,8 @@ test('should setup removeMenuItem action object', () => {
 });
 
 test('should remove menuItem from firebase', done => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
+
   const id = menuItems[2].id;
   store
     .dispatch(startRemoveMenuItem({ id }))
@@ -54,7 +63,7 @@ test('should remove menuItem from firebase', done => {
         type: 'REMOVE_MENU_ITEM',
         id
       });
-      return database.ref(`menuItems/${id}`).once('value');
+      return database.ref(`users/${uid}/menuItems/${id}`).once('value');
     })
     .then(snapshot => {
       expect(snapshot.val()).toBeFalsy();
@@ -74,7 +83,7 @@ test('should setup editMenuItem action object', () => {
 });
 
 test('should edit menuItem from firebase', done => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   const id = menuItems[0].id;
   const updates = { menu_item: 'nuggets' };
   store
@@ -86,7 +95,7 @@ test('should edit menuItem from firebase', done => {
         id,
         updates
       });
-      return database.ref(`menuItems/${id}`).once('value');
+      return database.ref(`users/${uid}/menuItems/${id}`).once('value');
     })
     .then(snapshot => {
       expect(snapshot.val().menu_item).toBe(updates.menu_item);
@@ -103,7 +112,7 @@ test('should setup addMenuItem action object with provided values', () => {
 });
 
 test('should add menuItem to database and store', done => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   const menuItemData = {
     calories: 50,
     carbs: 50,
@@ -125,7 +134,9 @@ test('should add menuItem to database and store', done => {
         }
       });
 
-      return database.ref(`menuItems/${actions[0].menuItem.id}`).once('value');
+      return database
+        .ref(`users/${uid}/menuItems/${actions[0].menuItem.id}`)
+        .once('value');
     })
     .then(snapshot => {
       expect(snapshot.val()).toEqual(menuItemData);
@@ -134,7 +145,7 @@ test('should add menuItem to database and store', done => {
 });
 
 test('should add menuItem with defaults to database and store', done => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   const menuItemDefaults = {
     calories: 0,
     carbs: 0,
@@ -156,7 +167,9 @@ test('should add menuItem with defaults to database and store', done => {
         }
       });
 
-      return database.ref(`menuItems/${actions[0].menuItem.id}`).once('value');
+      return database
+        .ref(`users/${uid}/menuItems/${actions[0].menuItem.id}`)
+        .once('value');
     })
     .then(snapshot => {
       expect(snapshot.val()).toEqual(menuItemDefaults);
@@ -173,7 +186,7 @@ test('should setup setMenuItem action object with data', () => {
 });
 
 test('should fetch the menuItems from firebase', done => {
-  const store = createMockStore({});
+  const store = createMockStore(defaultAuthState);
   store.dispatch(startSetMenuItems()).then(() => {
     const actions = store.getActions();
     expect(actions[0]).toEqual({

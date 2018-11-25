@@ -29,7 +29,8 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  startEditExpense: (id, menuItem) => dispatch(startEditMenuItem(id, menuItem)),
+  startEditMenuItem: (id, menuItem) =>
+    dispatch(startEditMenuItem(id, menuItem)),
   startRemoveMenuItem: data => dispatch(startRemoveMenuItem(data))
 });
 

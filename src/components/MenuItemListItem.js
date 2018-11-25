@@ -11,7 +11,7 @@ const MenuItemListItem = ({
   protein
 }) => (
   <div>
-    <h2>{restaurant_name}</h2>
+    {/* <h2>{restaurant_name}</h2> */}
     <Link to={`/edit/${id}`}>
       <h3>{menu_item}</h3>
     </Link>

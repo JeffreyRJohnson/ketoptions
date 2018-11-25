@@ -11,15 +11,6 @@ exports[`should render Header correctly 1`] = `
     activeClassName="is-active"
     aria-current="page"
     className="header__link"
-    exact={true}
-    to="/"
-  >
-    Landing Page
-  </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    aria-current="page"
-    className="header__link"
     to="/dashboard"
   >
     Dashboard
@@ -32,21 +23,10 @@ exports[`should render Header correctly 1`] = `
   >
     Create
   </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    aria-current="page"
-    className="header__link"
-    to="/edit"
+  <button
+    onClick={[Function]}
   >
-    Edit
-  </NavLink>
-  <NavLink
-    activeClassName="is-active"
-    aria-current="page"
-    className="header__link"
-    to="/delete"
-  >
-    Delete
-  </NavLink>
+    Logout
+  </button>
 </header>
 `;
